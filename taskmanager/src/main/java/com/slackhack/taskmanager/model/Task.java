@@ -10,9 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name = "user")
+@Table(name = "tasks")
 public class Task {
 
 	@Id
