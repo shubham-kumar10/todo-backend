@@ -2,12 +2,17 @@ package com.slackhack.taskmanager.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name = "subtask")
@@ -15,17 +20,22 @@ public class Subtask {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "subtask_id")
 	private int id;
 
-	@Column(name = "title")
+	@Column(name = "subtask_title")
 	private String title;
 
-	@Column(name = "description")
+	@Column(name = "subtask_description")
 	private String description;
 
-	@Column(name = "estimate")
+	@Column(name = "subtask_estimate")
 	private Date estimate;
+	
+	@ManyToOne(cascade={CascadeType.MERGE})
+	@JoinColumn(name="task_id")
+	@NotNull
+	private Task task;
 
 	public int getId() {
 		return id;
@@ -59,6 +69,14 @@ public class Subtask {
 		this.estimate = estimate;
 	}
 
+	public Task getTask() {
+		return task;
+	}
+
+	public void setTask(Task task) {
+		this.task = task;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -66,6 +84,7 @@ public class Subtask {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((estimate == null) ? 0 : estimate.hashCode());
 		result = prime * result + id;
+		result = prime * result + ((task == null) ? 0 : task.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
@@ -91,6 +110,11 @@ public class Subtask {
 			return false;
 		if (id != other.id)
 			return false;
+		if (task == null) {
+			if (other.task != null)
+				return false;
+		} else if (!task.equals(other.task))
+			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
@@ -102,7 +126,7 @@ public class Subtask {
 	@Override
 	public String toString() {
 		return "Subtask [id=" + id + ", title=" + title + ", description=" + description + ", estimate=" + estimate
-				+ "]";
+				+ ", task=" + task + "]";
 	}
-
+		
 }

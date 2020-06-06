@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,19 +15,19 @@ public class Task {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "task_id")
 	private Long id;
 
-	@Column(name="end_date")
+	@Column(name="task_end_date")
 	private Date endDate;
 	
-	@Column(name="start_date")
+	@Column(name="task_start_date")
 	private Date startDate;
 	
-	@Column(name="complete")
+	@Column(name="task_complete")
 	private boolean isCompleted;
 	
-	@Column(name="label")
+	@Column(name="task_label")
 	private String label;
 
 	public Long getId() {
