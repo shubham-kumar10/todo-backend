@@ -42,7 +42,6 @@ public class Task {
 	
 	@ManyToOne(cascade={CascadeType.MERGE})
 	@JoinColumn(name="id")
-	@NotNull
 	private User user;
 	
 	public User getUser() {
