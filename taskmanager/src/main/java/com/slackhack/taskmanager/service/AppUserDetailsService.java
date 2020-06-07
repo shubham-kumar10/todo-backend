@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.slackhack.taskmanager.exception.UserAlreadyExistsException;
 import com.slackhack.taskmanager.model.AppUser;
 import com.slackhack.taskmanager.model.User;
 import com.slackhack.taskmanager.repository.UserRepository;
@@ -38,5 +40,20 @@ public class AppUserDetailsService implements UserDetailsService {
 	public AppUserDetailsService(UserRepository userRepository) {
 		super();
 		this.userRepository = userRepository;
+	}
+	
+	public void signup(User newUser) throws UserAlreadyExistsException {
+		LOGGER.info("NEW User IS: " + newUser);
+		System.out.println(newUser);
+		User user = userRepository.findByUserName(newUser.getUserName());
+		if (user != null) {
+			throw new UserAlreadyExistsException("User Already Exists");
+		} else {
+			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+			String encodedPassword = bCryptPasswordEncoder.encode(newUser.getPassword());
+			newUser.setPassword(encodedPassword);
+			userRepository.save(newUser);
+		}
+
 	}
 }

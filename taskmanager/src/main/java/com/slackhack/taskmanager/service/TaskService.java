@@ -21,7 +21,7 @@ public class TaskService {
 	}
 	
 	@Transactional
-	public List<Task> addTask(Task task){
+	public List<Task> addTask(int id,Task task){
 		taskRepository.save(task);
 		return taskRepository.findAll();
 	}
