@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.slackhack.taskmanager.model.Task;
+import com.slackhack.taskmanager.repository.UserRepository;
 import com.slackhack.taskmanager.service.TaskService;
 
 @RestController
@@ -42,7 +43,7 @@ public class TaskController {
 	}
 	
 	@PostMapping("/add/{id}")
-	public List<Task> addTask(@PathVariable int id,@RequestBody @Valid Task task){
+	public List<Task> addTask(@PathVariable long id,@RequestBody @Valid Task task){
 		return taskService.addTask(id,task);
 	}
 }

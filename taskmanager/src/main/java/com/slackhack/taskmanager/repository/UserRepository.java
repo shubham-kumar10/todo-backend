@@ -7,5 +7,6 @@ import com.slackhack.taskmanager.model.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 
 	User findByUserName(String username);
+	User findById(Long id);
 
 }

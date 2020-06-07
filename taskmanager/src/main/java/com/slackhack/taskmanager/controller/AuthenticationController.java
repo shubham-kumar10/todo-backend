@@ -39,7 +39,7 @@ public class AuthenticationController {
 		//String role = user.getRole().equals("S") ? "Student" : user.getRole().equals("M") ? "Mentor":"";
 		
 		/* Adding user details to auth-map */
-		//authmap.put("role", role);
+		authmap.put("id", user.getId().toString());
 		authmap.put("firstname", user.getFirstName());
 		authmap.put("lastname", user.getLastName());
 		authmap.put("token", generateJwt(getUser(authHeader)));
